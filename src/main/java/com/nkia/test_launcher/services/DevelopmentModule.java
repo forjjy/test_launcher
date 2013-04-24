@@ -1,0 +1,45 @@
+package com.nkia.test_launcher.services;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.tapestry5.*;
+import org.apache.tapestry5.ioc.MappedConfiguration;
+import org.apache.tapestry5.ioc.OrderedConfiguration;
+import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Contribute;
+import org.apache.tapestry5.ioc.annotations.Local;
+import org.apache.tapestry5.services.Request;
+import org.apache.tapestry5.services.RequestFilter;
+import org.apache.tapestry5.services.RequestHandler;
+import org.apache.tapestry5.services.Response;
+import org.apache.tapestry5.services.javascript.JavaScriptStack;
+import org.apache.tapestry5.services.javascript.JavaScriptStackSource;
+import org.apache.tapestry5.services.javascript.StylesheetLink;
+import org.slf4j.Logger;
+
+import com.nkia.test_core.common.ExtJSStack;
+
+/**
+ * This module is automatically included as part of the Tapestry IoC Registry if <em>tapestry.execution-mode</em>
+ * includes <code>development</code>.
+ */
+public class DevelopmentModule
+{
+	
+    public static void contributeApplicationDefaults(
+            MappedConfiguration<String, Object> configuration)
+    {
+        // The factory default is true but during the early stages of an application
+        // overriding to false is a good idea. In addition, this is often overridden
+        // on the command line as -Dtapestry.production-mode=false
+        configuration.add(SymbolConstants.PRODUCTION_MODE, false);
+
+        // The application version number is incorprated into URLs for some
+        // assets. Web browsers will cache assets because of the far future expires
+        // header. If existing assets are changed, the version number should also
+        // change, to force the browser to download new versions.
+        configuration.add(SymbolConstants.APPLICATION_VERSION, "1.0-SNAPSHOT-DEV");
+    }
+}
